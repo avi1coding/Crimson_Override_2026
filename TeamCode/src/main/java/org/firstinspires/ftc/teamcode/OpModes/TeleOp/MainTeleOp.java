@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.OpModes;
+package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.RobotMap;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
-public class TeleOp extends OpMode {
+public class MainTeleOp extends OpMode {
 
     private final RobotMap robot = new RobotMap();
     @Override
