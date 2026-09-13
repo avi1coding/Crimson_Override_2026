@@ -8,12 +8,10 @@ import org.firstinspires.ftc.teamcode.Hardware.RobotMap;
 public class TeleOp extends OpMode {
 
     private final RobotMap robot = new RobotMap();
-//init
     @Override
     public void init() {
         robot.init(hardwareMap);
     }
-//loop
     @Override
     public void loop() {
         double y = -gamepad1.left_stick_y;
