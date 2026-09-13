@@ -6,7 +6,7 @@ public abstract class AutoBase extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        // --- PUT COMMON HARDWARE INITIALIZATION HERE ---
+        // PUT COMMON HARDWARE INITIALIZATION HERE
         // Example: drive = new Drivetrain(hardwareMap);
 
         waitForStart();

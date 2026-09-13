@@ -1,4 +1,13 @@
 package org.firstinspires.ftc.teamcode.OpModes.Autonomous;
 
-public class AutoRedLeft {
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+@Autonomous(name = "Auto Red Left", group = "Red")
+// Change LinearOpMode to AutoBase right here:
+public class AutoRedLeft extends AutoBase {
+
+    @Override
+    protected void runPath() throws InterruptedException {
+        // Your blue left path code goes here
+    }
 }
