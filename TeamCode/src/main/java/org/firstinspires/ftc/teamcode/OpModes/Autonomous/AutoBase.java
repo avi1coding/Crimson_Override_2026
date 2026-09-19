@@ -2,11 +2,12 @@ package org.firstinspires.ftc.teamcode.OpModes.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Hardware.RobotMap;
+
 public abstract class AutoBase extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        // PUT COMMON HARDWARE INITIALIZATION HERE
         // Example: drive = new Drivetrain(hardwareMap);
 
         waitForStart();
