@@ -25,6 +25,10 @@ public class MainTeleOp extends OpMode {
         double backLeftPower   = (y - x + rx) / denominator;
         double frontRightPower = (y - x - rx) / denominator;
         double backRightPower  = (y + x - rx) / denominator;
+        telemetry.addData("frontLeftPower", frontLeftPower);
+        telemetry.addData("frontRightPower", frontRightPower);
+        telemetry.addData("backLeftPower", backLeftPower);
+        telemetry.addData("backRightPower", backRightPower);
 
         robot.frontLeftMotor.setPower(frontLeftPower);
         robot.backLeftMotor.setPower(backLeftPower);
