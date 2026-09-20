@@ -2,12 +2,11 @@ package org.firstinspires.ftc.teamcode.OpModes.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "Auto Blue Right", group = "Blue")
-// Change LinearOpMode to AutoBase right here:
+@Autonomous(name = "Auto Blue Right", group = "BIOBUZZ")
 public class AutoBlueRight extends AutoBase {
 
     @Override
-    protected void runPath() throws InterruptedException {
-        // Your blue left path code goes here
+    protected void runPath() {
+        // your driving/scoring steps go here
     }
 }

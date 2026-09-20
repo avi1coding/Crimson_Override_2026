@@ -4,16 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 @Autonomous(name = "Auto Blue Left", group = "BIOBUZZ")
 public class AutoBlueLeft extends AutoBase {
+
     @Override
-    public void runOpMode() {
-        alliance = Alliance.BLUE;
-        startSide = StartSide.LEFT;
-
-        initHardware();
-        waitForStart();
-
-        if (opModeIsActive()) {
-            runAuto();
-        }
+    protected void runPath() {
+        // your driving/scoring steps go here
     }
 }
