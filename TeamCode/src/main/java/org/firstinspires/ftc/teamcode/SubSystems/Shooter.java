@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Shooter {
 
     private DcMotorEx shooterMotor;
-    private final double SHOOTER_VELOCITY = 1800; // ticks per second, tune this later
+    private final double SHOOTER_VELOCITY = 1800; // ticks per second, tune this laterhttps://github.com/avi1coding/Crimson_Override_2026https://github.com/avi1coding/Crimson_Override_2026https://github.com/avi1coding/Crimson_Override_2026
 
     public void init(HardwareMap hardwareMap) {
         shooterMotor = hardwareMap.get(DcMotorEx.class, "shooter");
