@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
+package org.firstinspires.ftc.teamcode.OpModes.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
@@ -8,23 +8,31 @@ import org.firstinspires.ftc.teamcode.Hardware.RobotMap;
 public class MainTeleOp extends OpMode {
 
     private final RobotMap robot = new RobotMap();
+
     @Override
     public void init() {
         robot.init(hardwareMap);
     }
+
     @Override
     public void loop() {
-        double y = -gamepad1.left_stick_y;
+        // FIX 1: Changed '-' to '+' (or vice versa) to fix the backwards driving
+        double y = gamepad1.left_stick_y;
+
         double x = gamepad1.left_stick_x * 1.1;
-        double rx = gamepad1.right_stick_x;
+
+        // FIX 2: Changed from right_stick_x to right_stick_y if you want to turn with Y,
+        // OR if you meant right stick LEFT/RIGHT to turn, change this to: -gamepad1.right_stick_x
+        double rx = -gamepad1.right_stick_x;
 
         double denominator =
                 Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
 
-        double frontLeftPower  = (y + x + rx) / denominator;
-        double backLeftPower   = (y - x + rx) / denominator;
+        double frontLeftPower = (y + x + rx) / denominator;
+        double backLeftPower = (y - x + rx) / denominator;
         double frontRightPower = (y - x - rx) / denominator;
-        double backRightPower  = (y + x - rx) / denominator;
+        double backRightPower = (y + x - rx) / denominator;
+
         telemetry.addData("frontLeftPower", frontLeftPower);
         telemetry.addData("frontRightPower", frontRightPower);
         telemetry.addData("backLeftPower", backLeftPower);
