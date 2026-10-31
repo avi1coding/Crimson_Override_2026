@@ -7,11 +7,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Shooter {
 
     private DcMotorEx shooterMotor;
-    private final double SHOOTER_VELOCITY = 1800; // ticks per second, tune this laterhttps://github.com/avi1coding/Crimson_Override_2026https://github.com/avi1coding/Crimson_Override_2026https://github.com/avi1coding/Crimson_Override_2026
+
+    private static final double SHOOTER_VELOCITY = 1800; // ticks per second, tune this later
+    private static final double IDLE_VELOCITY = 400;     // ticks per second, tune this later
 
     public void init(HardwareMap hardwareMap) {
         shooterMotor = hardwareMap.get(DcMotorEx.class, "shooter");
         shooterMotor.setDirection(DcMotor.Direction.FORWARD);
+        shooterMotor.setVelocity(IDLE_VELOCITY);
     }
 
     public void shoot() {
@@ -19,7 +22,7 @@ public class Shooter {
     }
 
     public void stop() {
-        shooterMotor.setVelocity(0);
+        shooterMotor.setVelocity(IDLE_VELOCITY);
     }
 
     public double getCurrentVelocity() {
