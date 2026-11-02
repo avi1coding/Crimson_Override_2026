@@ -6,17 +6,23 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 public class AutoBlueTipped extends AutoBase {
 
     @Override
-    protected double getUnparkPower() { return 0.5; } // TODO: tune
+    protected double getUnparkForward() { return 0.5; } // TODO: tune
+
+    @Override
+    protected double getUnparkStrafe() { return 0.5; } // mirrored sign from red — toward blue garden
 
     @Override
     protected double getUnparkSeconds() { return 1.0; } // TODO: tune
 
     @Override
-    protected double getParkPower() { return 0.5; } // TODO: tune
+    protected double getParkForward() { return 0.5; } // TODO: tune
+
+    @Override
+    protected double getParkStrafe() { return 0.5; } // mirrored sign from red
 
     @Override
     protected double getParkSeconds() { return 1.0; } // TODO: tune
 
     @Override
-    protected boolean shouldShootInAuto() { return false; } // tipped robot just leaves + parks
+    protected boolean shouldShootInAuto() { return false; }
 }

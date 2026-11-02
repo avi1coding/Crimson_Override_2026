@@ -6,17 +6,23 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 public class AutoRedNotTipped extends AutoBase {
 
     @Override
-    protected double getUnparkPower() { return 0.5; } // TODO: tune
+    protected double getUnparkForward() { return 0.5; } // TODO: tune
+
+    @Override
+    protected double getUnparkStrafe() { return 0.0; } // straight for now — update once you show me this path
 
     @Override
     protected double getUnparkSeconds() { return 1.0; } // TODO: tune
 
     @Override
-    protected double getParkPower() { return 0.5; } // TODO: tune
+    protected double getParkForward() { return 0.5; } // TODO: tune
+
+    @Override
+    protected double getParkStrafe() { return 0.0; } // straight for now
 
     @Override
     protected double getParkSeconds() { return 1.0; } // TODO: tune
 
     @Override
-    protected boolean shouldShootInAuto() { return true; } // not-tipped robot shoots
+    protected boolean shouldShootInAuto() { return true; }
 }
