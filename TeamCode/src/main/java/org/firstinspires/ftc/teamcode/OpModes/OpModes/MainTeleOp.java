@@ -9,15 +9,15 @@ import org.firstinspires.ftc.teamcode.SubSystems.Shooter;
 public class MainTeleOp extends OpMode {
 
     private final RobotMap robot = new RobotMap();
-//    private Shooter shooter;
-//   private Intake intake;
+    private Shooter shooter;
+   private Intake intake;
     @Override
     public void init() {
         robot.init(hardwareMap);
-//        intake = new Intake(hardwareMap);
+        intake = new Intake(hardwareMap);
 
-//        shooter = new Shooter();
-//        shooter.init(hardwareMap);
+        shooter = new Shooter();
+        shooter.init(hardwareMap);
     }
     @Override
     public void loop() {
@@ -45,19 +45,19 @@ public class MainTeleOp extends OpMode {
         robot.frontRightMotor.setPower(frontRightPower);
         robot.backRightMotor.setPower(backRightPower);
 
-//        if (gamepad2.right_bumper) {
-//            intake.intake();
-//        } else if (gamepad2.left_bumper) {
-//            intake.outtake();
-//        } else {
-//            intake.stop();
-//        }
+        if (gamepad2.right_bumper) {
+            intake.intake();
+        } else if (gamepad2.left_bumper) {
+            intake.outtake();
+        } else {
+            intake.stop();
+        }
 
-//        if (gamepad2.right_trigger > 0.5) {
-//            shooter.shoot();
-//        } else {
-//            shooter.stop();
-//        }
+        if (gamepad2.right_trigger > 0.5) {
+            shooter.shoot();
+        } else {
+            shooter.stop();
+        }
     }
 }
 
