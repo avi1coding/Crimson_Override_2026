@@ -24,5 +24,6 @@ public class Shooter {
 
     public double getCurrentVelocity() {
         return shooterMotor.getVelocity();
+
     }
 }

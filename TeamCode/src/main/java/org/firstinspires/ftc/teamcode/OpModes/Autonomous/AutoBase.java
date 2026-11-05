@@ -7,6 +7,7 @@ public abstract class AutoBase extends LinearOpMode {
 
     protected RobotMap robot;
 
+
     protected abstract void runPath();
     @Override
     public void runOpMode() throws InterruptedException {
