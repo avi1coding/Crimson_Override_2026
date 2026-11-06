@@ -7,14 +7,21 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Shooter {
 
     private DcMotorEx shooterMotor;
+    private DcMotor gateMotor;
 
-    private static final double SHOOTER_VELOCITY = 1800; // ticks per second, tune this later
-    private static final double IDLE_VELOCITY = 400;     // ticks per second, tune this later
+    private static final double SHOOTER_VELOCITY = 1000;
+
+    private static final double GATE_POWER = 0.6; // TODO: tune — how hard the gate motor drives
 
     public void init(HardwareMap hardwareMap) {
         shooterMotor = hardwareMap.get(DcMotorEx.class, "shooter");
         shooterMotor.setDirection(DcMotor.Direction.FORWARD);
-        shooterMotor.setVelocity(IDLE_VELOCITY);
+        shooterMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        shooterMotor.setVelocity(0);
+
+        gateMotor = hardwareMap.get(DcMotor.class, "shooterGate");
+        gateMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        closeGate();
     }
 
     public void shoot() {
@@ -22,7 +29,15 @@ public class Shooter {
     }
 
     public void stop() {
-        shooterMotor.setVelocity(IDLE_VELOCITY);
+        shooterMotor.setVelocity(0);
+    }
+
+    public void openGate() {
+        gateMotor.setPower(GATE_POWER);
+    }
+
+    public void closeGate() {
+        gateMotor.setPower(-GATE_POWER);
     }
 
     public double getCurrentVelocity() {

@@ -7,17 +7,18 @@ import org.firstinspires.ftc.teamcode.SubSystems.Shooter;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class MainTeleOp extends OpMode {
+    private static final double DRIVE_SPEED = 0.75;
 
     private final RobotMap robot = new RobotMap();
-//    private Shooter shooter;
-//   private Intake intake;
+    private Shooter shooter;
+   private Intake intake;
     @Override
     public void init() {
         robot.init(hardwareMap);
-//        intake = new Intake(hardwareMap);
+        intake = new Intake(hardwareMap);
 
-//        shooter = new Shooter();
-//        shooter.init(hardwareMap);
+        shooter = new Shooter();
+        shooter.init(hardwareMap);
     }
     @Override
     public void loop() {
@@ -40,24 +41,24 @@ public class MainTeleOp extends OpMode {
         telemetry.addData("backLeftPower", backLeftPower);
         telemetry.addData("backRightPower", backRightPower);
 
-        robot.frontLeftMotor.setPower(frontLeftPower);
-        robot.backLeftMotor.setPower(backLeftPower);
-        robot.frontRightMotor.setPower(frontRightPower);
-        robot.backRightMotor.setPower(backRightPower);
+        robot.frontLeftMotor.setPower(frontLeftPower * DRIVE_SPEED);
+        robot.backLeftMotor.setPower(backLeftPower  * DRIVE_SPEED);
+        robot.frontRightMotor.setPower(frontRightPower  * DRIVE_SPEED);
+        robot.backRightMotor.setPower(backRightPower  * DRIVE_SPEED);
 
-//        if (gamepad2.right_bumper) {
-//            intake.intake();
-//        } else if (gamepad2.left_bumper) {
-//            intake.outtake();
-//        } else {
-//            intake.stop();
-//        }
+        if (gamepad2.right_bumper) {
+            intake.intake();
+        } else if (gamepad2.left_bumper) {
+            intake.outtake();
+        } else {
+            intake.stop();
+        }
 
-//        if (gamepad2.right_trigger > 0.5) {
-//            shooter.shoot();
-//        } else {
-//            shooter.stop();
-//        }
+        if (gamepad2.right_trigger > 0.5) {
+            shooter.shoot();
+        } else {
+            shooter.stop();
+        }
     }
 }
 

@@ -17,13 +17,10 @@ public abstract class AutoBase extends OpMode {
 
     private final ElapsedTime stateTimer = new ElapsedTime();
 
-    private enum State { UNPARK, SHOOT, PARK, DONE }
+    private enum State { UNPARK, SHOOT, PARK, PARK2, DONE }
     private State state;
 
     private static final double SHOOT_SECONDS = 2.0;
-    // How hard it corrects drift. Start small — if the robot wobbles back and
-    // forth instead of smoothly straightening out, lower this. If it barely
-    // corrects at all, raise it slightly.
     private static final double HEADING_KP = 0.02;
 
     private double phaseStartHeading = 0;
@@ -38,6 +35,12 @@ public abstract class AutoBase extends OpMode {
     protected abstract double getParkStrafe();
     protected abstract double getParkSeconds();
 
+    // Optional second park leg — defaults to "skip it."
+    // Only override these in a subclass that actually needs a second leg (e.g. AutoBlueNotTipped).
+    protected double getParkForward2() { return 0; }
+    protected double getParkStrafe2() { return 0; }
+    protected double getParkSeconds2() { return 0; }
+
     protected abstract boolean shouldShootInAuto();
 
     @Override
@@ -49,14 +52,9 @@ public abstract class AutoBase extends OpMode {
         shooter.init(hardwareMap);
 
         imu = hardwareMap.get(IMU.class, "imu");
-        // TODO: verify these two against how your Control Hub is physically
-        // mounted once you're back at the robot — LogoFacingDirection is
-        // whichever way the REV logo on the hub points, UsbFacingDirection is
-        // whichever way its USB ports point. UP/FORWARD is the common default
-        // for a hub mounted flat with USB facing the robot's front.
         RevHubOrientationOnRobot orientation = new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                RevHubOrientationOnRobot.UsbFacingDirection.UP
         );
         imu.initialize(new IMU.Parameters(orientation));
     }
@@ -98,6 +96,20 @@ public abstract class AutoBase extends OpMode {
             case PARK:
                 driveVectorCorrected(phaseForward, phaseStrafe);
                 if (stateTimer.seconds() >= getParkSeconds()) {
+                    stopDrive();
+                    if (getParkSeconds2() > 0) {
+                        stateTimer.reset();
+                        beginPhase(getParkForward2(), getParkStrafe2());
+                        state = State.PARK2;
+                    } else {
+                        state = State.DONE;
+                    }
+                }
+                break;
+
+            case PARK2:
+                driveVectorCorrected(phaseForward, phaseStrafe);
+                if (stateTimer.seconds() >= getParkSeconds2()) {
                     stopDrive();
                     state = State.DONE;
                 }

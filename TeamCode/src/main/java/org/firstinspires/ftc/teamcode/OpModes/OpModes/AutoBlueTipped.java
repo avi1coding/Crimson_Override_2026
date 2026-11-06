@@ -5,24 +5,40 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 @Autonomous(name = "Blue - Tipped")
 public class AutoBlueTipped extends AutoBase {
 
+    // Leg 1: forward a bit
     @Override
-    protected double getUnparkForward() { return 0.5; } // TODO: tune
+    protected double getUnparkForward() {
+        return 0.5;
+    }
 
     @Override
-    protected double getUnparkStrafe() { return 0.5; } // mirrored sign from red — toward blue garden
+    protected double getUnparkStrafe() {
+        return 0.0;
+    }
 
     @Override
-    protected double getUnparkSeconds() { return 1.0; } // TODO: tune
+    protected double getUnparkSeconds() {
+        return 0.6; // TODO: tune at the field — "forward a bit"
+    }
+
+    // Leg 2: to the blue square
+    @Override
+    protected double getParkForward() {
+        return 0.5;
+    }
 
     @Override
-    protected double getParkForward() { return 0.5; } // TODO: tune
+    protected double getParkStrafe() {
+        return -0.3; // TODO: tune direction toward the blue square
+    }
 
     @Override
-    protected double getParkStrafe() { return 0.5; } // mirrored sign from red
+    protected double getParkSeconds() {
+        return 1.0; // TODO: tune at the field
+    }
 
     @Override
-    protected double getParkSeconds() { return 1.0; } // TODO: tune
-
-    @Override
-    protected boolean shouldShootInAuto() { return false; }
+    protected boolean shouldShootInAuto() {
+        return false;
+    }
 }
