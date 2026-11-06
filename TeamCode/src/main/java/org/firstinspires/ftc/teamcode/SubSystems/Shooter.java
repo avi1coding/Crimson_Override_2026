@@ -9,9 +9,8 @@ public class Shooter {
     private DcMotorEx shooterMotor;
     private DcMotor gateMotor;
 
-    private static final double SHOOTER_VELOCITY = 1000;
-
-    private static final double GATE_POWER = 0.6; // TODO: tune — how hard the gate motor drives
+    private static final double SHOOTER_VELOCITY = 1440;
+    private static final double GATE_POWER = 0.6; // TODO: tune
 
     public void init(HardwareMap hardwareMap) {
         shooterMotor = hardwareMap.get(DcMotorEx.class, "shooter");
@@ -21,7 +20,7 @@ public class Shooter {
 
         gateMotor = hardwareMap.get(DcMotor.class, "shooterGate");
         gateMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        closeGate();
+        // Nothing set here on purpose — gate stays still until you press A
     }
 
     public void shoot() {
@@ -32,12 +31,12 @@ public class Shooter {
         shooterMotor.setVelocity(0);
     }
 
-    public void openGate() {
+    public void runGate() {
         gateMotor.setPower(GATE_POWER);
     }
 
-    public void closeGate() {
-        gateMotor.setPower(-GATE_POWER);
+    public void stopGate() {
+        gateMotor.setPower(0);
     }
 
     public double getCurrentVelocity() {
