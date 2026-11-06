@@ -17,14 +17,16 @@ public abstract class AutoBase extends OpMode {
 
     private final ElapsedTime stateTimer = new ElapsedTime();
 
-    private enum State { UNPARK, SHOOT, PARK, DONE }
+    private enum State { UNPARK, SHOOT, PARK, PARK2, DONE }
     private State state;
 
     private static final double SHOOT_SECONDS = 2.0;
     private static final double HEADING_KP = 0.02;
+
     private double phaseStartHeading = 0;
     private double phaseForward = 0;
     private double phaseStrafe = 0;
+
     protected abstract double getUnparkForward();
     protected abstract double getUnparkStrafe();
     protected abstract double getUnparkSeconds();
@@ -32,6 +34,12 @@ public abstract class AutoBase extends OpMode {
     protected abstract double getParkForward();
     protected abstract double getParkStrafe();
     protected abstract double getParkSeconds();
+
+    // Optional second park leg — defaults to "skip it."
+    // Only override these in a subclass that actually needs a second leg (e.g. AutoBlueNotTipped).
+    protected double getParkForward2() { return 0; }
+    protected double getParkStrafe2() { return 0; }
+    protected double getParkSeconds2() { return 0; }
 
     protected abstract boolean shouldShootInAuto();
 
@@ -48,7 +56,8 @@ public abstract class AutoBase extends OpMode {
                 RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP
         );
-        imu.initialize(new IMU.Parameters(orientation));    }
+        imu.initialize(new IMU.Parameters(orientation));
+    }
 
     @Override
     public void start() {
@@ -87,6 +96,20 @@ public abstract class AutoBase extends OpMode {
             case PARK:
                 driveVectorCorrected(phaseForward, phaseStrafe);
                 if (stateTimer.seconds() >= getParkSeconds()) {
+                    stopDrive();
+                    if (getParkSeconds2() > 0) {
+                        stateTimer.reset();
+                        beginPhase(getParkForward2(), getParkStrafe2());
+                        state = State.PARK2;
+                    } else {
+                        state = State.DONE;
+                    }
+                }
+                break;
+
+            case PARK2:
+                driveVectorCorrected(phaseForward, phaseStrafe);
+                if (stateTimer.seconds() >= getParkSeconds2()) {
                     stopDrive();
                     state = State.DONE;
                 }

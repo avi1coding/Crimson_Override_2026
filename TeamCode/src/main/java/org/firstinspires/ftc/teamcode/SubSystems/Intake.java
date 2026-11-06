@@ -9,13 +9,12 @@ public class Intake {
     private DcMotor intakeMotor;
     private CRServo intakeServoLeft;
     private CRServo intakeServoRight;
-
-    public static final double INTAKE_POWER = 0.8;
+    public static final double INTAKE_POWER = 0.7;
     public static final double OUTTAKE_POWER = -0.8;
 
     public Intake(HardwareMap hardwareMap) {
         intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
-        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotor.Direction.REVERSE); // was FORWARD
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         intakeServoLeft = hardwareMap.get(CRServo.class, "intakeServoLeft");
@@ -29,14 +28,16 @@ public class Intake {
 
     public void intake() {
         intakeMotor.setPower(INTAKE_POWER);
-        intakeServoLeft.setPower(1.0);
-        intakeServoRight.setPower(1.0);
+        intakeServoLeft.setPower(-1.0);  // was 1.0
+        intakeServoRight.setPower(-1.0); // was 1.0
+
     }
 
     public void outtake() {
         intakeMotor.setPower(OUTTAKE_POWER);
-        intakeServoLeft.setPower(-1.0);
-        intakeServoRight.setPower(-1.0);
+        intakeServoLeft.setPower(1.0);  // was -1.0
+        intakeServoRight.setPower(1.0); // was -1.0
+
     }
 
     public void stop() {
